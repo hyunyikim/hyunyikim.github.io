@@ -1,39 +1,31 @@
 {
-  "title": "Blog by John Doe",
-  "url": "https://lumen.alxshelepenok.com",
-  "subtitle": "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
+  "title": "현이킴 블로그",
+  "url": "https://hyunyikim.github.io/",
+  "subtitle": "",
   "copyright": "© All rights reserved.",
   "googleAnalyticsId": "UA-73379983-2",
   "disqusShortname": "",
-  "postsLimit": 4,
+  "postsLimit": 5,
   "pathPrefix": "/",
   "menu": [
     {
-      "label": "Articles",
+      "label": "글 모음",
       "path": "/"
     },
-    {
-      "label": "About me",
-      "path": "/pages/about"
-    },
-    {
-      "label": "Contact me",
-      "path": "/pages/contacts"
-    }
   ],
   "author": {
-    "name": "John Doe",
+    "name": "현이 킴",
     "photo": "/photo.jpg",
-    "bio": "Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu.",
+    "bio": "",
     "contacts": {
       "rss": "",
       "email": "",
-      "github": "#",
-      "facebook": "#",
-      "telegram": "#",
-      "twitter": "#",
-      "linkedin": "#",
-      "instagram": "#",
+      "github": "hyunyikim",
+      "facebook": "",
+      "telegram": "",
+      "twitter": "",
+      "linkedin": "",
+      "instagram": "",
       "line": "",
       "weibo": "",
       "gitlab": "",
