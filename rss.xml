@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[현이킴 블로그]]></title><description><![CDATA[현이킴 블로그]]></description><link>http://github.com/dylang/node-rss</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 18 Dec 2022 12:29:18 GMT</lastBuildDate><item><title><![CDATA[리액트 내의 iframe에서 뒤로가기 버그]]></title><description><![CDATA[리액트의 Key가 하는 일]]></description><link>https://hyunyikim.github.io//posts/react-iframe-back-navigation</link><guid isPermaLink="false">https://hyunyikim.github.io//posts/react-iframe-back-navigation</guid><pubDate>Sat, 03 Dec 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;리액트 안에서 동작하는 iframe이 있는데 각 라우팅마다 iframe의 src를 바꿔주며 동작하게 구현을 해놓았다. 문제는 뒤로가기가 예상대로 동작이 안된다는 것이었다. 페이지가 한 번 바뀌었으니까 뒤로가기를 하면 이전 페이지가 나와야 하는데 두 번 눌러야 제대로 그제야 원하는 페이지가 나왔다. &lt;a href=&quot;https://www.aleksandrhovhannisyan.com/blog/react-iframes-back-navigation-bug/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;이 블로그 포스팅&lt;/a&gt;에서 내가 겪었던 문제를 동일하게 구현해놓았다.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[현이킴 블로그]]></title><description><![CDATA[현이킴 블로그]]></description><link>http://github.com/dylang/node-rss</link><generator>GatsbyJS</generator><lastBuildDate>Sun, 18 Dec 2022 12:31:48 GMT</lastBuildDate><item><title><![CDATA[react-easy-crop 트러블 슈팅]]></title><description><![CDATA[이미지의 사이즈 찾기]]></description><link>https://hyunyikim.github.io//posts/react-easy-crop-trouble-shooting</link><guid isPermaLink="false">https://hyunyikim.github.io//posts/react-easy-crop-trouble-shooting</guid><pubDate>Sun, 18 Dec 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;이미지를 크롭해 파일로 만드는 기능을 구현하던 중 파일의 사이즈가 원본 이미지 파일보다 더 커지는 현상이 발생했다. 원인을 찾아보니 파일의 사이즈는 작은데 이미지의 너비와 높이가 3000픽셀이 넘어가는 파일들이 존재했고 그런 파일들을 크롭한 후 파일로 만들 때 원본 이미지의 너비, 높이가 크다보니 canvas로 이미지를 그려 크롭을 하고 난 후에도 이미지의 너비, 높이가 크고 거기서 만들어진 파일의 크기도 커지는 문제였다.&lt;/p&gt;
+&lt;p&gt;첫 번째로, 크롭 라이브러리로 react-easy-crop을 사용했는데 크롭하고자 하는 크기의 비율만큼 크롭된 결과물의 크기를 줄였다.&lt;/p&gt;
+&lt;p&gt;두 번째로, canvas에 이미지를 그릴 때 좌표와 함께 조정된 사이즈의 이미지 너비, 높이를 함께 전달해준다.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;jsx&quot;&gt;&lt;pre class=&quot;language-jsx&quot;&gt;&lt;code class=&quot;language-jsx&quot;&gt;&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; canvas &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; document&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;canvas&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; ctx &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; canvas&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;getContext&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&apos;2d&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;const&lt;/span&gt; image &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;token class-name&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+image&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;src &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&apos;image.png&apos;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;// 1)&lt;/span&gt;
+ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;drawImage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;image&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;// 2)&lt;/span&gt;
+ctx&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;drawImage&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;image&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; image width&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; image height&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;처음에는 이미지 엘리먼트를 생성할 때 크기를 지정해주었기 때문에 캔버스에 이미지를 그릴 때 따로 이미지의 크기를 지정해주지 않아도 이미지가 모두 캔버스 안에 그려질 것이라고 생각했다. 하지만 이때 그려지는 이미지는 이미지의 원본 사이즈(intrinsic size)를 기준으로 그려졌고 2번과 같이 캔버스에 그려질 이미지 사이즈를 직접 정의해줘야 이미지가 잘리지 않고 캔버스에 그려진다.&lt;/p&gt;
+&lt;p&gt;&lt;span
+      class=&quot;gatsby-resp-image-wrapper&quot;
+      style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 776px; &quot;
+    &gt;
+      &lt;a
+    class=&quot;gatsby-resp-image-link&quot;
+    href=&quot;/static/ce4ebb3617268ed77757c4e6acd02dd9/167b5/change-image-size-example.png&quot;
+    style=&quot;display: block&quot;
+    target=&quot;_blank&quot;
+    rel=&quot;noopener&quot;
+  &gt;
+    &lt;span
+    class=&quot;gatsby-resp-image-background-image&quot;
+    style=&quot;padding-bottom: 63.74999999999999%; position: relative; bottom: 0; left: 0; background-image: url(&apos;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACEklEQVQ4y6WTz0/TYByH918Q2Nq1W0fHuu5H263tum52DjY2yAIJYAyo8QAHg4FIggQvXIhRY+LBxANejHgxHvBk/Oce89Zs/ogjRg9P3/fbvvn06fd9m1BUjWnI6Qy9wZDR2jrLow06SwMkSfnj2rSSjcfE9MAcc0mZdx8/c/XlK5efrjg9O2dmZg41k/uXQI1kKs3rt5dcXLzh/YdLjk6e/F3guPgdKZ3h7OkLDvbvc3h8woOj0/8zTMkZzp8/49XLM3Z297iz95DZ2dT1gWIyRmzCmHF98OiQx8f7bG6t0Y4iUpJ6/aZkND1+Y6li49R97JqP5biYJQvPb2LZdVrtDpWqgySrTGvRJLBcdajadSzHIwgj/GYbrxFi1zxsx8UwKxSMEmapSlbTp/Zb3BdiCXHR80XyCyauH1Jzg9i0YtXoD1YJWxHDlRGdbo+CUUYWgZMe5n5CQ83Ok8hqeWzHiw0Eda9JzW0gzBeX+jF110NRMiSTErKs/IIkpSdjbChUU5ISW5plKw73Gy2qtosb9gg7Q4xqQKHSwKj4mHaLoqjLXjwvOTcoWiGm3UbLLfw4NvN5gwWjxLxeiNELZYLeDn73FtFol2i0R9C7jd/dpNnfpjW8Rzi4i9/dorG4hXdzg5xe/G44/m8nx0VWUbM6TriCG61jBcvYzSFWo48dDLCDZWqt1fi5MBRrRf/EJ38D8UmX2iLJzNcAAAAASUVORK5CYII=&apos;); background-size: cover; display: block;&quot;
+  &gt;&lt;/span&gt;
+  &lt;picture&gt;
+          &lt;source
+              srcset=&quot;/static/ce4ebb3617268ed77757c4e6acd02dd9/8ac56/change-image-size-example.webp 240w,
+/static/ce4ebb3617268ed77757c4e6acd02dd9/d3be9/change-image-size-example.webp 480w,
+/static/ce4ebb3617268ed77757c4e6acd02dd9/bac22/change-image-size-example.webp 776w&quot;
+              sizes=&quot;(max-width: 776px) 100vw, 776px&quot;
+              type=&quot;image/webp&quot;
+            /&gt;
+          &lt;source
+            srcset=&quot;/static/ce4ebb3617268ed77757c4e6acd02dd9/8ff5a/change-image-size-example.png 240w,
+/static/ce4ebb3617268ed77757c4e6acd02dd9/e85cb/change-image-size-example.png 480w,
+/static/ce4ebb3617268ed77757c4e6acd02dd9/167b5/change-image-size-example.png 776w&quot;
+            sizes=&quot;(max-width: 776px) 100vw, 776px&quot;
+            type=&quot;image/png&quot;
+          /&gt;
+          &lt;img
+            class=&quot;gatsby-resp-image-image&quot;
+            src=&quot;/static/ce4ebb3617268ed77757c4e6acd02dd9/167b5/change-image-size-example.png&quot;
+            alt=&quot;이미지 개발자 도구&quot;
+            title=&quot;이미지 개발자 도구&quot;
+            loading=&quot;lazy&quot;
+            decoding=&quot;async&quot;
+            style=&quot;width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;&quot;
+          /&gt;
+        &lt;/picture&gt;
+  &lt;/a&gt;
+    &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;이미지 엘리먼트를 생성할 때 설정하는 width, height는 &lt;code class=&quot;language-text&quot;&gt;rendered size&lt;/code&gt;이고 &lt;code class=&quot;language-text&quot;&gt;intrinsic size&lt;/code&gt;는 이미지의 원본 사이즈이다. 이 &lt;code class=&quot;language-text&quot;&gt;intrinsic size&lt;/code&gt;는 &lt;code class=&quot;language-text&quot;&gt;HTMLImageElement.naturalWidth,&lt;/code&gt; &lt;code class=&quot;language-text&quot;&gt;HTMLImageElement.naturalHeight&lt;/code&gt;로 접근이 가능하다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/naturalWidth&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/naturalWidth&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;</content:encoded></item><item><title><![CDATA[리액트 내의 iframe에서 뒤로가기 버그]]></title><description><![CDATA[리액트의 Key가 하는 일]]></description><link>https://hyunyikim.github.io//posts/react-iframe-back-navigation</link><guid isPermaLink="false">https://hyunyikim.github.io//posts/react-iframe-back-navigation</guid><pubDate>Sat, 03 Dec 2022 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;리액트 안에서 동작하는 iframe이 있는데 각 라우팅마다 iframe의 src를 바꿔주며 동작하게 구현을 해놓았다. 문제는 뒤로가기가 예상대로 동작이 안된다는 것이었다. 페이지가 한 번 바뀌었으니까 뒤로가기를 하면 이전 페이지가 나와야 하는데 두 번 눌러야 제대로 그제야 원하는 페이지가 나왔다. &lt;a href=&quot;https://www.aleksandrhovhannisyan.com/blog/react-iframes-back-navigation-bug/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener noreferrer&quot;&gt;이 블로그 포스팅&lt;/a&gt;에서 내가 겪었던 문제를 동일하게 구현해놓았다.&lt;/p&gt;
 &lt;p&gt;원인은 iframe이 브라우저의 뒤로가기를 방해하는 것이었다. iframe의 src 속성만 변경하며 해당 컴포넌트를 재사용한다면 iframe의 현재 src까지 브라우저의 history 스택에 쌓이게 된다. 실제로 iframe이 아닌 리액트 컴포넌트로만 이루어진 컴포넌트가 라우팅 되었을 때는 history가 1개 쌓였지만 iframe으로 라우팅이 되었을 때는 분명 라우팅이 한 번 바뀌었는데 history가 2개씩 쌓이는 것을 확인할 수 있었다.&lt;/p&gt;
 &lt;p&gt;블로그에서는 해결책을 iframe에 고유의 key를 주어 페이지가 변경될 때마다 새로운 iframe이 렌더링 될 수 있도록 했다. key가 다르면 리액트는 다른 엘리먼트로 판단하고 리렌더링 하는 대신 언마운트하고 리마운트를 한다. 리액트 컴포넌트에서 key가 단순히 리스트를 렌더링 할 때 리액트가 각 아이템들을 판별하는데에서만 쓰이는줄 알았는데 이렇게 렌더링을 다시 하길 원할 때 명확하게 다른 key props를 넘기며 리액트에게 알려줄 수 있었다.&lt;/p&gt;
 &lt;hr&gt;
