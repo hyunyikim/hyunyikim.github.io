@@ -6,7 +6,7 @@ draft: false
 slug: "react-refresh"
 category: "react"
 tags:
-  - "react", "webpack", "HMR"
+  - "react"
 description: "(+esbuild-loader)"
 socialImage: ""
 ---
